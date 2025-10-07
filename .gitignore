@@ -1,0 +1,28 @@
+# Virtual environments
+.venv/
+env/
+venv/
+.conda/
+.env
+# Compiled files
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Large local files
+global_codebase/
+*.pkl
+*.faiss
+*.npy
+*.db
+*.log
+
+backend/gpu_test.py
+backend/TestPlace.py
+.vscode

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Code Iterator Review Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>⚙️ Code Iterator</h1>
+    <p>Analyze your code and GitHub repo using AI</p>
+
+    <div class="form-container">
+        <label for="repo_url">GitHub Repo URL:</label>
+        <input type="url" id="repo_url" placeholder="https://github.com/username/repo" required>
+
+        <label for="new_code">Paste your code:</label>
+        <textarea id="new_code" rows="10" placeholder="Paste your code here..." required></textarea>
+
+        <button id="submitBtn">Submit for Review</button>
+    </div>
+
+    <div id="output">
+        <h2>Feedback</h2>
+        <pre id="feedback">Awaiting input...</pre>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
