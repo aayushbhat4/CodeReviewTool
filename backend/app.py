@@ -15,25 +15,28 @@ from mainCode import (
     get_llm_review
 )
 
-app = Flask(__name__)
-CORS(app)
+# Serve frontend from "frontend" folder
+app = Flask(__name__, static_folder="frontend", static_url_path="/")
+CORS(app)  # Keep CORS in case you access from other origins
 
+@app.route("/")
+def index():
+    return app.send_static_file("index.html")
 
 @app.route("/review", methods=["POST"])
 def review():
     temp_dir = "temp_repo"
     
     try:
-        data =request.get_json()
+        data = request.get_json()
         repo_url = data.get("repo_url")
         new_code = data.get("new_code")
-        
 
         print("[INFO] Received review request.")
-        print("[DEBUG] Incoming JSON:", request.get_json())
+        print("[DEBUG] Incoming JSON:", data)
+
         # Step 1: Download and extract repo
         if os.path.exists(temp_dir):
-            print("[INFO] Cleaning existing temp_repo directory.")
             shutil.rmtree(temp_dir)
         os.makedirs(temp_dir, exist_ok=True)
 
@@ -69,25 +72,20 @@ def review():
         feedback = get_llm_review(prompt)
         feedback = feedback.encode("utf-8", errors="replace").decode()
         print("[INFO] Review complete.")
-        print(feedback)
 
         # Cleanup
         shutil.rmtree(temp_dir)
-        print("[DEBUG] Returning JSON:", {"feedback": feedback})
 
-        return jsonify({"feedback": feedback}),200
-    
+        return jsonify({"feedback": feedback}), 200
 
     except Exception as e:
         print("[ERROR] Exception occurred:")
         traceback.print_exc()
-
         if os.path.exists(temp_dir):
             shutil.rmtree(temp_dir)
-
         return jsonify({"error": str(e)}), 500
 
 
 if __name__ == "__main__":
     print("[INFO] Starting Flask server...")
-    app.run(debug=True, port=5000, use_reloader=False)
+    app.run(host="0.0.0.0", debug=True, port=5000, use_reloader=False)

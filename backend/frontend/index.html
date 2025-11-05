@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code Review Assistant</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🧠 Code Review Assistant</h1>
+
+    <div class="input-group">
+      <label for="repoUrl">GitHub Repository URL</label>
+      <input type="text" id="repoUrl" placeholder="https://github.com/user/repo" />
+    </div>
+
+    <div class="input-group">
+      <label for="newCode">Paste New Code</label>
+      <textarea id="newCode" rows="10" placeholder="Paste your new code here..."></textarea>
+    </div>
+
+    <button id="submitBtn">🔍 Get Review</button>
+
+    <div id="loading" class="hidden">⏳ Processing... please wait.</div>
+
+    <div id="output" class="hidden">
+      <h2>💬 Review Feedback</h2>
+      <pre id="feedbackText"></pre>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
