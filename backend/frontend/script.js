@@ -1,16 +1,22 @@
-document.getElementById("submitBtn").addEventListener("click", async () => {
+const submitBtn = document.getElementById("submitBtn");
+const btnText = document.getElementById("btnText");
+const loader = document.getElementById("loader");
+const output = document.getElementById("output");
+const feedbackText = document.getElementById("feedbackText");
+
+submitBtn.addEventListener("click", async () => {
   const repoUrl = document.getElementById("repoUrl").value.trim();
   const newCode = document.getElementById("newCode").value.trim();
-  const loading = document.getElementById("loading");
-  const output = document.getElementById("output");
-  const feedbackText = document.getElementById("feedbackText");
 
   if (!repoUrl || !newCode) {
-    alert("Please enter both repo URL and code!");
+    alert("⚠️ Please fill in both the repository URL and your code!");
     return;
   }
 
-  loading.classList.remove("hidden");
+  // UI changes
+  loader.classList.remove("hidden");
+  btnText.textContent = "Reviewing...";
+  submitBtn.disabled = true;
   output.classList.add("hidden");
 
   try {
@@ -21,16 +27,20 @@ document.getElementById("submitBtn").addEventListener("click", async () => {
     });
 
     const data = await response.json();
-    loading.classList.add("hidden");
 
     if (response.ok) {
-      feedbackText.textContent = data.feedback || "No feedback received.";
+      feedbackText.innerHTML = marked.parse(data.feedback || "No feedback generated.");
       output.classList.remove("hidden");
+      output.scrollIntoView({ behavior: "smooth" });
     } else {
-      alert("Error: " + (data.error || "Something went wrong."));
+      alert("❌ Error: " + (data.error || "Request failed."));
     }
   } catch (error) {
-    loading.classList.add("hidden");
-    alert("Request failed: " + error.message);
+    alert("⚠️ Request failed: " + error.message);
+  } finally {
+    // Reset button state
+    loader.classList.add("hidden");
+    btnText.textContent = "🔍 Get Review";
+    submitBtn.disabled = false;
   }
 });

@@ -5,31 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Code Review Assistant</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <div class="container">
-    <h1>🧠 Code Review Assistant</h1>
+  <main class="wrapper">
+    <header>
+      <h1>🧠 Code Review Assistant</h1>
+      <p class="subtitle">Analyze and get AI-powered feedback for your code</p>
+    </header>
 
-    <div class="input-group">
-      <label for="repoUrl">GitHub Repository URL</label>
-      <input type="text" id="repoUrl" placeholder="https://github.com/user/repo" />
-    </div>
+    <section class="card">
+      <div class="input-group">
+        <label for="repoUrl">📦 GitHub Repository URL</label>
+        <input
+          type="text"
+          id="repoUrl"
+          placeholder="https://github.com/user/repo"
+        />
+      </div>
 
-    <div class="input-group">
-      <label for="newCode">Paste New Code</label>
-      <textarea id="newCode" rows="10" placeholder="Paste your new code here..."></textarea>
-    </div>
+      <div class="input-group">
+        <label for="newCode">💻 Paste Your New Code</label>
+        <textarea
+          id="newCode"
+          rows="10"
+          placeholder="Paste the new Python code you want reviewed..."
+        ></textarea>
+      </div>
 
-    <button id="submitBtn">🔍 Get Review</button>
+      <button id="submitBtn">
+        <span id="btnText">🔍 Get Review</span>
+        <span id="loader" class="hidden"></span>
+      </button>
+    </section>
 
-    <div id="loading" class="hidden">⏳ Processing... please wait.</div>
-
-    <div id="output" class="hidden">
+    <section id="output" class="card hidden">
       <h2>💬 Review Feedback</h2>
-      <pre id="feedbackText"></pre>
-    </div>
-  </div>
+      <div id="feedbackText"></div>
+    </section>
 
+    <footer>
+      <p>Built with ❤️ and Flask + OpenAI</p>
+    </footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
